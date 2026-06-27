@@ -1,17 +1,30 @@
-#!/usr/bin/python
-# -*- coding: utf-8 -*-
+import pygame
+import random
+
 
 class Obstacle:
     def __init__(self):
-        self.x = None
-        self.y = None
-        self.speed = None
+        self.x = random.randint(50, 550)
+        self.y = random.randint(-300, -50)
 
-    def update(self, ):
-        pass
+        self.speed = 4
 
-    def draw(self, ):
-        pass
+        self.image = pygame.image.load("assets/images/obstacle.png")
+        self.image = pygame.transform.scale(self.image, (40, 40))
 
-    def reset_position(self, ):
-        pass
+        self.width = 40
+        self.height = 40
+
+    def update(self):
+        self.y += self.speed
+
+        if self.y > 480:
+            self.reset_position()
+
+    def draw(self):
+        screen = pygame.display.get_surface()
+        screen.blit(self.image, (self.x, self.y))
+
+    def reset_position(self):
+        self.x = random.randint(50, 550)
+        self.y = random.randint(-300, -50)
